@@ -33,7 +33,7 @@ public class Cue : MonoBehaviour
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (isActive)
+        if (isActive && Input.GetMouseButton(1))
         {
             //mousePos = new Vector3(mousePos.x, transform.position.y, transform.position.z); wrong?
             //rb.constraints = RigidbodyConstraints2D.FreezePositionY;
