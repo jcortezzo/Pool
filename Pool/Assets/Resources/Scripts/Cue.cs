@@ -33,11 +33,23 @@ public class Cue : MonoBehaviour
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        //if (isActive)
-        //{
-        //    mousePos = new Vector3(mousePos.x, transform.position.y, transform.position.z);
-        //}
-        rb.MovePosition(mousePos);
+        if (isActive)
+        {
+            //mousePos = new Vector3(mousePos.x, transform.position.y, transform.position.z); wrong?
+            //rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+
+            Vector3 localVelocity = transform.InverseTransformDirection(mousePos - transform.position);
+            localVelocity.y = 0;
+            localVelocity.z = 0;
+            rb.velocity = transform.TransformDirection(localVelocity * 50);  // <-- lmao @ 50
+        } else
+        {
+            //rb.constraints = RigidbodyConstraints2D.None;
+            rb.MovePosition(mousePos);
+            //rb.velocity = mousePos - transform.position;
+        }
+        
+        //rb.MovePosition(mousePos);
 
         if (!isActive)
         {
