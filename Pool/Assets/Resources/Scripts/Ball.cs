@@ -8,7 +8,10 @@ public class Ball : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
 
-    [SerializeField] int number;
+    [SerializeField]
+    private int number;
+    public int Number { get { return number; } set { number = value; } }
+
     private BallType type;
 
     private const int CUE_NUMBER = 16;
@@ -18,7 +21,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private float speed;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -49,4 +52,12 @@ public class Ball : MonoBehaviour
 
         rb.velocity = new Vector2(horizontal, vertical).normalized * Time.deltaTime * speed;
     }
+
+    public void BallUpdateNumber(int num)
+    {
+        number = num;
+        anim.Play("" + num);
+    }
+
+
 }
