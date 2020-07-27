@@ -69,5 +69,14 @@ public class Ball : MonoBehaviour
         //anim.Play("" + num);
     }
 
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Hole"))
+        {
+            if (type != BallType.CUE)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
 }
