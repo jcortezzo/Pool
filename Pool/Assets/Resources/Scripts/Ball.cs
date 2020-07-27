@@ -29,7 +29,17 @@ public class Ball : MonoBehaviour
 
         type = number < 7  ? BallType.SOLID :
                number == 7 ? BallType.EIGHT :
-                             BallType.STRIPE;  // number > 7
+               number < CUE_NUMBER ? BallType.STRIPE :
+               BallType.CUE;
+
+        if (type == BallType.CUE)
+        {
+            if (GlobalValues.instance.GetCueBall() != null)
+            {
+                Destroy(GlobalValues.instance.GetCueBall().gameObject);
+            }
+            GlobalValues.instance.SetCueBall(this);
+        }
 
         anim.Play("" + number);
     }
