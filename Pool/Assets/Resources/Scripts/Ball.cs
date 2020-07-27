@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private float speed;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -66,7 +66,7 @@ public class Ball : MonoBehaviour
     public void BallUpdateNumber(int num)
     {
         number = num;
-        anim.Play("" + num);
+        //anim.Play("" + num);
     }
 
 
