@@ -16,7 +16,7 @@ public class Cue : MonoBehaviour
     private bool showLine;
     private Vector2 direction;
 
-    private const int MAX_DEPTH = 2;
+    private const int MAX_DEPTH = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -66,20 +66,26 @@ public class Cue : MonoBehaviour
             {
                 lr.enabled = true;
                 lr.SetPosition(1, hit.point);
+                DrawPath(hit, -transform.right, 1);
             }
             else
             {
                 lr.enabled = false;
             }
-            DrawPath(hit, 1);
         }
     }
 
-    void DrawPath(RaycastHit2D originHit, int depth)
+    void DrawPath(RaycastHit2D originHit, Vector2 incoming, int depth)
     {
-        if (depth >= MAX_DEPTH) return;
+        if (depth >= MAX_DEPTH || originHit.collider == null) return;
 
-        RaycastHit2D hit = Physics2D.Raycast(originHit.point - originHit.normal * 6, -originHit.normal,
+        //RaycastHit2D hit = Physics2D.Raycast(originHit.point/* - originHit.normal * 6*/, -originHit.normal,
+        //                                     100000f, ballMask);
+
+        Vector2 reflection = Vector2.Reflect(incoming, originHit.normal);
+        reflection *= originHit.collider.CompareTag("Ball") ? -1 : 1;
+
+        RaycastHit2D hit = Physics2D.Raycast(originHit.point, reflection,
                                              100000f, bounceMask);
         if (hit.collider == null)
         {
@@ -92,7 +98,7 @@ public class Cue : MonoBehaviour
         lr.positionCount++;
         lr.SetPosition(depth + 1, hit.point);
 
-        DrawPath(originHit, depth + 1);
+        DrawPath(originHit, reflection, depth + 1);
     }
     
     void FixedUpdate()
