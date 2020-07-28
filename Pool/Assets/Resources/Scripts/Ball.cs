@@ -10,7 +10,7 @@ public class Ball : MonoBehaviour
 
     [Header("Properties")]
     [SerializeField] private int number;
-    [SerializeField] private float stopThreshhold = 0.1f;
+    [SerializeField] private float stopThreshhold = 0.2f;
 
     private BallType type;
 
@@ -29,7 +29,7 @@ public class Ball : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         type = number < 7  ? BallType.SOLID :
                number == 7 ? BallType.EIGHT :
@@ -45,11 +45,13 @@ public class Ball : MonoBehaviour
             GlobalValues.instance.SetCueBall(this);
         }
 
+        //Change to trigger to stop collision with cue
+        this.GetComponent<Collider2D>().isTrigger = true;
         anim.Play("" + number);
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -87,14 +89,22 @@ public class Ball : MonoBehaviour
         return number;
     }
 
+    public static BallType GetBallType(int number)
+    {
+        return number < 7 ? BallType.SOLID :
+               number == 7 ? BallType.EIGHT :
+               number < CUE_NUMBER ? BallType.STRIPE :
+               BallType.CUE;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Hole"))
         {
-            if (type != BallType.CUE)
-            {
-                Destroy(this.gameObject);
-            }
+            //if (type != BallType.CUE)
+            //{
+            //    Destroy(this.gameObject);
+            //}
         }
     }
 }

@@ -6,6 +6,7 @@ public enum BallType
 {
     SOLID,
     STRIPE,
-    EIGHT,
-    CUE
+    EIGHT = 8,
+    CUE = 16,
+    NONE
 }

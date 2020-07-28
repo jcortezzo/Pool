@@ -17,6 +17,9 @@ public class Cue : MonoBehaviour
     private bool recast;
     private Vector2 direction;
 
+    private bool cueBallHit;
+    public bool CueBallHit { get { return cueBallHit; } set { cueBallHit = value; } }
+
     private const int MAX_DEPTH = 3;
 
     // Start is called before the first frame update
@@ -110,8 +113,6 @@ public class Cue : MonoBehaviour
 
         if (isActive && Input.GetMouseButton(1))
         {
-            //mousePos = new Vector3(mousePos.x, transform.position.y, transform.position.z); wrong?
-            //rb.constraints = RigidbodyConstraints2D.FreezePositionY;
 
             Vector3 localVelocity = transform.InverseTransformDirection(mousePos - transform.position);
             localVelocity.y = 0;
@@ -119,16 +120,12 @@ public class Cue : MonoBehaviour
             rb.velocity = transform.TransformDirection(localVelocity * 50);  // <-- lmao @ 50
         } else
         {
-            //rb.constraints = RigidbodyConstraints2D.None;
             if (transform.position != mousePos)
             {
                 recast = true;
             }
             rb.MovePosition(mousePos);
-            //rb.velocity = mousePos - transform.position;
         }
-        
-        //rb.MovePosition(mousePos);
 
         if (!isActive)
         {
@@ -142,4 +139,19 @@ public class Cue : MonoBehaviour
 
         direction = transform.right;//mousePos - tip.position;//transform.eulerAngles;
     }
+
+    public Collider2D GetCollider()
+    {
+        return col;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("CueBall"))
+        {
+            //this.GetComponent<Collider2D>().isTrigger = true;
+            cueBallHit = true;
+        }
+    }
+
 }
