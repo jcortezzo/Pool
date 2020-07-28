@@ -1524,36 +1524,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: table
       objectReference: {fileID: 0}
-    - target: {fileID: 5715474611648406717, guid: ce192776de78e9c4394c3d821ced74ed,
-        type: 3}
-      propertyPath: m_TagString
-      value: Hole
-      objectReference: {fileID: 0}
-    - target: {fileID: 5715474611788326750, guid: ce192776de78e9c4394c3d821ced74ed,
-        type: 3}
-      propertyPath: m_TagString
-      value: Hole
-      objectReference: {fileID: 0}
-    - target: {fileID: 5715474611803187037, guid: ce192776de78e9c4394c3d821ced74ed,
-        type: 3}
-      propertyPath: m_TagString
-      value: Hole
-      objectReference: {fileID: 0}
-    - target: {fileID: 5715474612233222123, guid: ce192776de78e9c4394c3d821ced74ed,
-        type: 3}
-      propertyPath: m_TagString
-      value: Hole
-      objectReference: {fileID: 0}
-    - target: {fileID: 5715474612752367366, guid: ce192776de78e9c4394c3d821ced74ed,
-        type: 3}
-      propertyPath: m_TagString
-      value: Hole
-      objectReference: {fileID: 0}
-    - target: {fileID: 5715474613289477521, guid: ce192776de78e9c4394c3d821ced74ed,
-        type: 3}
-      propertyPath: m_TagString
-      value: Hole
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce192776de78e9c4394c3d821ced74ed, type: 3}
 --- !u!1001 &6490993647722247281
