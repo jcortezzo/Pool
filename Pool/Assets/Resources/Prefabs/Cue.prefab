@@ -98,9 +98,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c095378750b62464480b9943b8210034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
+  ballMask:
     serializedVersion: 2
     m_Bits: 1024
+  bounceMask:
+    serializedVersion: 2
+    m_Bits: 1280
 --- !u!50 &3454183393474642067
 Rigidbody2D:
   serializedVersion: 4

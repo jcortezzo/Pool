@@ -9,11 +9,14 @@ public class Cue : MonoBehaviour
     private SpriteRenderer sr;
     private Transform tip;
     private LineRenderer lr;
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask ballMask;
+    [SerializeField] private LayerMask bounceMask;
 
     private bool isActive;
     private bool showLine;
     private Vector2 direction;
+
+    private const int MAX_DEPTH = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -24,13 +27,15 @@ public class Cue : MonoBehaviour
         tip = GetComponentInChildren<Transform>();  // ?
         lr = GetComponent<LineRenderer>();
 
+        //lr.positionCount = MAX_DEPTH + 2;
         lr.SetPosition(0, tip.position);
         lr.SetPosition(1, tip.position);
         lr.startColor = Color.blue;
         lr.endColor = Color.blue;
         lr.startWidth = 0.1f;
         lr.endWidth = 0.1f;
-        showLine = true;
+        
+        showLine = false;
 
         col.isTrigger = true;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -52,9 +57,10 @@ public class Cue : MonoBehaviour
 
         if (showLine)
         {
+            lr.positionCount = 2;
             lr.SetPosition(0, tip.position);
             RaycastHit2D hit = Physics2D.Raycast(tip.position, -transform.right,
-                                                 100000f, layerMask);
+                                                 100000f, ballMask);
             Debug.DrawRay(tip.position, -transform.right * 10000f, Color.white, 0.1f, false);
             if (hit.collider != null)
             {
@@ -65,7 +71,28 @@ public class Cue : MonoBehaviour
             {
                 lr.enabled = false;
             }
+            DrawPath(hit, 1);
         }
+    }
+
+    void DrawPath(RaycastHit2D originHit, int depth)
+    {
+        if (depth >= MAX_DEPTH) return;
+
+        RaycastHit2D hit = Physics2D.Raycast(originHit.point - originHit.normal * 6, -originHit.normal,
+                                             100000f, bounceMask);
+        if (hit.collider == null)
+        {
+            //while (depth != MAX_DEPTH)
+            //{
+            //    lr.SetPosition(++depth, originHit.point);
+            //}
+            return;
+        }
+        lr.positionCount++;
+        lr.SetPosition(depth + 1, hit.point);
+
+        DrawPath(originHit, depth + 1);
     }
     
     void FixedUpdate()
