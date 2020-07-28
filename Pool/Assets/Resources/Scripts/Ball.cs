@@ -47,7 +47,10 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     void FixedUpdate()
