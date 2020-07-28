@@ -14,6 +14,7 @@ public class Cue : MonoBehaviour
 
     private bool isActive;
     private bool showLine;
+    private bool recast;
     private Vector2 direction;
 
     private const int MAX_DEPTH = 3;
@@ -36,6 +37,7 @@ public class Cue : MonoBehaviour
         lr.endWidth = 0.1f;
         
         showLine = false;
+        recast = true;
 
         col.isTrigger = true;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -55,7 +57,7 @@ public class Cue : MonoBehaviour
             lr.enabled = false;
         }
 
-        if (showLine)
+        if (showLine && recast)
         {
             lr.positionCount = 2;
             lr.SetPosition(0, tip.position);
@@ -72,6 +74,7 @@ public class Cue : MonoBehaviour
             {
                 lr.enabled = false;
             }
+            recast = false;
         }
     }
 
@@ -117,6 +120,10 @@ public class Cue : MonoBehaviour
         } else
         {
             //rb.constraints = RigidbodyConstraints2D.None;
+            if (transform.position != mousePos)
+            {
+                recast = true;
+            }
             rb.MovePosition(mousePos);
             //rb.velocity = mousePos - transform.position;
         }
@@ -128,6 +135,7 @@ public class Cue : MonoBehaviour
             Ball cueBall = GlobalValues.instance.GetCueBall();
             Vector3 cueBallPos = cueBall.transform.position;
             float angle = Mathf.Atan2(mousePos.y - cueBallPos.y, mousePos.x - cueBallPos.x);
+
             rb.MoveRotation(Mathf.Rad2Deg * angle);
         }
         rb.angularVelocity = 0f;
