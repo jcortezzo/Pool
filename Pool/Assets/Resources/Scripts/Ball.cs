@@ -8,9 +8,9 @@ public class Ball : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
 
-    [SerializeField]
-    private int number;
-    public int Number { get { return number; } set { number = value; } }
+    [Header("Properties")]
+    [SerializeField] private int number;
+    [SerializeField] private float stopThreshhold = 0.1f;
 
     private BallType type;
 
@@ -56,6 +56,12 @@ public class Ball : MonoBehaviour
     void FixedUpdate()
     {
         if (control) Move();
+
+        if (rb.velocity.magnitude <= stopThreshhold)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
     }
 
     void Move()
@@ -66,10 +72,15 @@ public class Ball : MonoBehaviour
         rb.velocity = new Vector2(horizontal, vertical).normalized * Time.deltaTime * speed;
     }
 
-    public void BallUpdateNumber(int num)
+    public void SetNumber(int num)
     {
         number = num;
-        //anim.Play("" + num);
+        anim.Play("" + num);
+    }
+
+    public int GetNumber()
+    {
+        return number;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

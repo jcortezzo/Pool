@@ -25,11 +25,11 @@ public class TableHole : MonoBehaviour
         if(collision.gameObject.CompareTag("Ball"))
         {
             Ball ball = collision.gameObject.GetComponent<Ball>();
-            if(ball.Number != 8 && ball.Number != 16)
+            if(ball.GetNumber() != 8 && ball.GetNumber() != 16)
             {
                 balls.Add(ball.gameObject);
                 ball.gameObject.SetActive(false);
-                table.SetBallIn(ball.Number - 1);
+                table.SetBallIn(ball.GetNumber() - 1);
             }
         }
     }

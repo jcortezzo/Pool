@@ -38,7 +38,7 @@ public class BallGeneration : MonoBehaviour
                 //Debug.Log(position);
                 GameObject ball = Instantiate(ballPrefab, new Vector3(position.x, position.y, -5), Quaternion.identity);
                 int ballNum = generationOrder[order++];
-                ball.GetComponent<Ball>().BallUpdateNumber(ballNum);
+                ball.GetComponent<Ball>().SetNumber(ballNum);
                 ball.GetComponent<Animator>().Play("" + ballNum);
             }
         }

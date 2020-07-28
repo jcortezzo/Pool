@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   number: 16
+  STOP_THRESHHOLD: 1
   control: 0
   speed: 0
 --- !u!95 &4149267425970029393
