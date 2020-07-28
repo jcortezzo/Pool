@@ -20,13 +20,17 @@ public class Ball : MonoBehaviour
     [SerializeField] private bool control;
     [SerializeField] private float speed;
 
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         type = number < 7  ? BallType.SOLID :
                number == 7 ? BallType.EIGHT :
                number < CUE_NUMBER ? BallType.STRIPE :
