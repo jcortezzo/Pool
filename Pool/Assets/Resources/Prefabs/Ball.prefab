@@ -50,7 +50,7 @@ MonoBehaviour:
   number: 16
   stopThreshhold: 0.1
   control: 0
-  speed: 0
+  speed: 1
 --- !u!95 &4149267425970029393
 Animator:
   serializedVersion: 3

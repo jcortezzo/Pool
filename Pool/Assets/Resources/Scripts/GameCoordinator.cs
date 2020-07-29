@@ -37,7 +37,7 @@ public class GameCoordinator : MonoBehaviour
         {
             player1Turn = !player1Turn;
             cue.CueBallHit = false;
-
+            // turn off trigger for all balls when cue ball is hit
             foreach (Ball ball in table.GetBallss())
             {
                 ball.GetComponent<Collider2D>().isTrigger = false;
@@ -46,6 +46,7 @@ public class GameCoordinator : MonoBehaviour
 
         if (IsTurnReady())
         {
+            // turn on trigger for normal ball except cue ball
             Ball[] balls = table.GetBallss();
             for (int i = 0; i < table.GetBallss().Length - 1; i++)
             {
@@ -88,6 +89,18 @@ public class GameCoordinator : MonoBehaviour
                     {
                         p1 = BallType.STRIPE;
                         p2 = BallType.SOLID;
+                    }
+                } else
+                {
+                    if (player1Turn)
+                    {
+                        p1 = BallType.STRIPE;
+                        p2 = BallType.SOLID;
+                    }
+                    else
+                    {
+                        p1 = BallType.SOLID;
+                        p2 = BallType.STRIPE;
                     }
                 }
                 isAssign = true;

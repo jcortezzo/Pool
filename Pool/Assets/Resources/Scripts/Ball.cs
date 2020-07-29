@@ -10,7 +10,7 @@ public class Ball : MonoBehaviour
 
     [Header("Properties")]
     [SerializeField] private int number;
-    [SerializeField] private float stopThreshhold = 0.2f;
+    [SerializeField] private float stopThreshhold = 0.3f;
 
     private BallType type;
 
@@ -62,7 +62,7 @@ public class Ball : MonoBehaviour
     void FixedUpdate()
     {
         if (control) Move();
-
+        
         if (rb.velocity.magnitude <= stopThreshhold)
         {
             rb.velocity = Vector2.zero;
