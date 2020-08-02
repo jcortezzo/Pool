@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameCoordinator : MonoBehaviour
 {
+    public static GameCoordinator Instance;
+
     [SerializeField]
     private bool player1Turn = true;
     public bool Player1Turn { get { return player1Turn; } }
@@ -22,17 +24,28 @@ public class GameCoordinator : MonoBehaviour
     public BallType P2 { get { return p2; } }
 
     private bool isAssign;
+
+    public bool IsTurnReady { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
-
+        if(Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
         AssignBallType();
-
+        IsTurnReady = CheckTurn();
         if (cue.CueBallHit)
         {
             player1Turn = !player1Turn;
@@ -42,9 +55,10 @@ public class GameCoordinator : MonoBehaviour
             {
                 ball.GetComponent<Collider2D>().isTrigger = false;
             }
+
         }
 
-        if (IsTurnReady())
+        if (IsTurnReady)
         {
             // turn on trigger for normal ball except cue ball
             Ball[] balls = table.GetBallss();
@@ -58,7 +72,7 @@ public class GameCoordinator : MonoBehaviour
         }
     }
 
-    private bool IsTurnReady()
+    private bool CheckTurn()
     {
         Ball[] balls = table.GetBallss();
         foreach(Ball ball in balls)

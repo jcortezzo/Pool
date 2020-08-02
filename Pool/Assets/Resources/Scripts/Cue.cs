@@ -51,9 +51,15 @@ public class Cue : MonoBehaviour
     void Update()
     {
         isActive = Input.GetMouseButton(0);
-        col.isTrigger = !isActive;
-        sr.color = isActive ? Color.white : Color.gray;
-
+        if(GameCoordinator.Instance.IsTurnReady)
+        {
+            col.isTrigger = !isActive;
+            sr.color = isActive ? Color.white : Color.gray;
+        } else
+        {
+            sr.color = Color.gray;
+        }
+        
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             showLine = !showLine;
