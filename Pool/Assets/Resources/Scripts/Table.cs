@@ -7,19 +7,7 @@ public class Table : MonoBehaviour
     [SerializeField]
     private bool[] balls = new bool[16];
     [SerializeField]
-    private Ball[] ballss = new Ball[16];
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private Ball[] ballObjects = new Ball[16];
 
     public void SetBallIn(int i)
     {
@@ -31,8 +19,8 @@ public class Table : MonoBehaviour
         return balls;
     }
 
-    public Ball[] GetBallss()
+    public Ball[] GetBallObjects()
     {
-        return ballss;
+        return ballObjects;
     }
 }

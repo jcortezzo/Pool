@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private SpriteRenderer sr;
     private Animator anim;
     private Rigidbody2D rb;
 
@@ -23,7 +22,6 @@ public class Ball : MonoBehaviour
 
     void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -36,17 +34,23 @@ public class Ball : MonoBehaviour
                number < CUE_NUMBER ? BallType.STRIPE :
                BallType.CUE;
 
-        if (type == BallType.CUE)
-        {
-            if (GlobalValues.instance.GetCueBall() != null)
-            {
-                Destroy(GlobalValues.instance.GetCueBall().gameObject);
-            }
-            GlobalValues.instance.SetCueBall(this);
-        }
+        //if (type == BallType.CUE)
+        //{
+        //    /**if (GlobalValues.instance.GetCueBall() != null)
+        //    {
+        //       Destroy(GlobalValues.instance.GetCueBall().gameObject);
+        //    }
+        //    GlobalValues.instance.SetCueBall(this);
+        //    **/
+        //    this.GetComponent<Collider2D>().isTrigger = false;
+        //} else
+        //{
+        //    this.GetComponent<Collider2D>().isTrigger = true;
+        //}
+
 
         //Change to trigger to stop collision with cue
-        this.GetComponent<Collider2D>().isTrigger = true;
+        this.GetComponent<Collider2D>().isTrigger = type != BallType.CUE;
         anim.Play("" + number);
     }
 
@@ -70,14 +74,6 @@ public class Ball : MonoBehaviour
         }
     }
 
-    void Move()
-    {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical   = Input.GetAxisRaw("Vertical");
-
-        rb.velocity = new Vector2(horizontal, vertical).normalized * Time.deltaTime * speed;
-    }
-
     public void SetNumber(int num)
     {
         number = num;
@@ -97,14 +93,12 @@ public class Ball : MonoBehaviour
                BallType.CUE;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Move()
     {
-        if (collision.CompareTag("Hole"))
-        {
-            //if (type != BallType.CUE)
-            //{
-            //    Destroy(this.gameObject);
-            //}
-        }
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        rb.velocity = new Vector2(horizontal, vertical).normalized * Time.deltaTime * speed;
     }
+
 }

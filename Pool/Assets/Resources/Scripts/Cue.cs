@@ -28,9 +28,11 @@ public class Cue : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<BoxCollider2D>();
         sr = GetComponent<SpriteRenderer>();
+
+
+        #region line renderer 
         tip = GetComponentInChildren<Transform>();  // ?
         lr = GetComponent<LineRenderer>();
-
         //lr.positionCount = MAX_DEPTH + 2;
         lr.SetPosition(0, tip.position);
         lr.SetPosition(1, tip.position);
@@ -38,9 +40,11 @@ public class Cue : MonoBehaviour
         lr.endColor = Color.blue;
         lr.startWidth = 0.1f;
         lr.endWidth = 0.1f;
-        
+
         showLine = false;
         recast = true;
+        #endregion
+
 
         col.isTrigger = true;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -59,7 +63,8 @@ public class Cue : MonoBehaviour
         {
             sr.color = Color.gray;
         }
-        
+
+        #region line renderer, still in development
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             showLine = !showLine;
@@ -85,8 +90,10 @@ public class Cue : MonoBehaviour
             }
             recast = false;
         }
+        #endregion
     }
 
+    #region draw prediction line
     void DrawPath(RaycastHit2D originHit, Vector2 incoming, int depth)
     {
         if (depth >= MAX_DEPTH || originHit.collider == null) return;
@@ -112,7 +119,8 @@ public class Cue : MonoBehaviour
 
         DrawPath(originHit, reflection, depth + 1);
     }
-    
+    #endregion
+
     void FixedUpdate()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -135,7 +143,7 @@ public class Cue : MonoBehaviour
 
         if (!isActive)
         {
-            Ball cueBall = GlobalValues.instance.GetCueBall();
+            Ball cueBall = GameCoordinator.Instance.GetCueBall();
             Vector3 cueBallPos = cueBall.transform.position;
             float angle = Mathf.Atan2(mousePos.y - cueBallPos.y, mousePos.x - cueBallPos.x);
 

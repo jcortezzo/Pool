@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1989383965751760398}
   - component: {fileID: 8296375847460157346}
   - component: {fileID: 1517904156187569678}
-  - component: {fileID: 8138906411112956230}
+  - component: {fileID: 1011047039}
   m_Layer: 10
   m_Name: CueBall
   m_TagString: CueBall
@@ -141,7 +141,7 @@ CircleCollider2D:
   m_Offset: {x: -0.024295688, y: 0}
   serializedVersion: 2
   m_Radius: 0.70070446
---- !u!114 &8138906411112956230
+--- !u!114 &1011047039
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,10 +150,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8138906410770904752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89de4a14e52001c4883a99b5f68989e5, type: 3}
+  m_Script: {fileID: 11500000, guid: b470c9f67c7c9c148a9b2add18ba8273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   number: 16
-  stopThreshhold: 0.1
+  stopThreshhold: 0.3
   control: 0
   speed: 0

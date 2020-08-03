@@ -15,7 +15,9 @@ public class GameCoordinator : MonoBehaviour
 
     [SerializeField]
     private Cue cue;
-    
+
+    [SerializeField]
+    private Ball cueBall;
 
     private BallType p1 = BallType.NONE;
     private BallType p2 = BallType.NONE;
@@ -28,7 +30,7 @@ public class GameCoordinator : MonoBehaviour
     public bool IsTurnReady { get; private set; }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if(Instance == null)
         {
@@ -51,7 +53,7 @@ public class GameCoordinator : MonoBehaviour
             player1Turn = !player1Turn;
             cue.CueBallHit = false;
             // turn off trigger for all balls when cue ball is hit
-            foreach (Ball ball in table.GetBallss())
+            foreach (Ball ball in table.GetBallObjects())
             {
                 ball.GetComponent<Collider2D>().isTrigger = false;
             }
@@ -61,8 +63,8 @@ public class GameCoordinator : MonoBehaviour
         if (IsTurnReady)
         {
             // turn on trigger for normal ball except cue ball
-            Ball[] balls = table.GetBallss();
-            for (int i = 0; i < table.GetBallss().Length - 1; i++)
+            Ball[] balls = table.GetBallObjects();
+            for (int i = 0; i < balls.Length - 1; i++)
             {
                 balls[i].GetComponent<Collider2D>().isTrigger = true;
             }
@@ -74,7 +76,7 @@ public class GameCoordinator : MonoBehaviour
 
     private bool CheckTurn()
     {
-        Ball[] balls = table.GetBallss();
+        Ball[] balls = table.GetBallObjects();
         foreach(Ball ball in balls)
         {
             if(ball.GetComponent<Rigidbody2D>().velocity.magnitude > 0.0f)
@@ -122,4 +124,13 @@ public class GameCoordinator : MonoBehaviour
         }
     }
 
+    public Ball GetCueBall()
+    {
+        return cueBall;
+    }
+
+    public Table GetTable()
+    {
+        return table;
+    }
 }
